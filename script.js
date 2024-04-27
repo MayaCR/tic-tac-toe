@@ -1,7 +1,7 @@
 const GameboardController = (() => {
-    const gameboard = ['X', 'X', 'O', 
-                        'O', 'O', 'X', 
-                        '', 'X', 'O']
+    const gameboard = ['', '', '', 
+                        '', '', '', 
+                        '', '', '']
 
     // matches index to gameboard index, checks if space is empty, then places player marker
     const placeMarker = (playerMarker, spaceIndex) => {
@@ -18,8 +18,6 @@ const GameboardController = (() => {
                     return
             }
         })
-
-        console.log(gameboard)
     }
 
     return { gameboard,placeMarker }
@@ -42,8 +40,8 @@ const GameController = (() => {
     let currentPlayer
 
     const startGame = () => {
-        playerOne = createPlayer('P1', 'X')
-        playerTwo = createPlayer('P2', 'O')
+        playerOne = createPlayer('Player 1', 'X')
+        playerTwo = createPlayer('Player 2', 'O')
         currentPlayer = randomPlayer(playerOne, playerTwo)
         
         playRound()
@@ -85,10 +83,12 @@ const GameController = (() => {
             }
         })
 
-        return console.log(winner ? winner : gameboard.includes('') ? null : `It's a draw!`)
+        return winner ? winner : gameboard.includes('') ? null : `It's a draw!`
     }
 
     return { startGame }
 })()
+
+const UIController = () => {}
 
 GameController.startGame()
