@@ -1,70 +1,74 @@
 const GameboardController = (() => {
-	const gameboard = ['', '', '', '', '', '', '', '', ''];
+	const gameboard = ['', '', '', '', '', '', '', '', '']
 
 	// matches index to gameboard index, checks if space is empty, then places player marker
 	const placeMarker = (playerMarker, spaceIndex) => {
 		gameboard.forEach((space, index) => {
-			let match = index === spaceIndex && space === '';
+			let match = index === spaceIndex && space === ''
 
 			switch (match) {
 				case true:
 					// console.log('match')
-					gameboard.splice(spaceIndex, 1, playerMarker);
-					break;
+					gameboard.splice(spaceIndex, 1, playerMarker)
+					break
 				case false:
 					// console.log('no match')
-					return;
+					return
 			}
-		});
-	};
+		})
+	}
 
-	return { gameboard, placeMarker };
-})();
+	return { gameboard, placeMarker }
+})()
 
 // returns player object
 const createPlayer = (playerName, playerMarker) => {
-	return { playerName, playerMarker };
-};
+	return { playerName, playerMarker }
+}
 
 // creates an array that returns randomly selected player
 const randomPlayer = (...array) => {
-	return array[Math.floor(Math.random() * array.length)];
-};
+	return array[Math.floor(Math.random() * array.length)]
+}
 
 const GameController = (() => {
-	let playerOne;
-	let playerTwo;
-	let currentPlayer;
+	let playerOne
+	let playerTwo
+	let currentPlayer
 
 	const startGame = () => {
-		playerOne = createPlayer('Player 1', 'X');
-		playerTwo = createPlayer('Player 2', 'O');
-		currentPlayer = randomPlayer(playerOne, playerTwo);
+		let playerOneName = document.querySelector('#player-one').value
+		let playerTwoName = document.querySelector('#player-two').value
 
-		playRound();
-	};
+		playerOne = createPlayer(playerOneName, 'X')
+		playerTwo = createPlayer(playerTwoName, 'O')
+		currentPlayer = randomPlayer(playerOne, playerTwo)
+
+		UIController.updateInstructions(`${currentPlayer.playerName} goes first.`)
+		playRound()
+	}
 
 	const playRound = (marker, selectedSpace) => {
-		marker = currentPlayer.playerMarker;
-		selectedSpace = 6;
+		marker = currentPlayer.playerMarker
+		selectedSpace = 6
 
-		GameboardController.placeMarker(marker, selectedSpace);
+		GameboardController.placeMarker(marker, selectedSpace)
 
 		// check for winner
-		checkForWinner();
+		checkForWinner()
 
-		switchPlayer();
-	};
+		switchPlayer()
+	}
 
 	const switchPlayer = () => {
 		currentPlayer === playerOne
 			? (currentPlayer = playerTwo)
-			: (currentPlayer = playerOne);
-	};
+			: (currentPlayer = playerOne)
+	}
 
 	const checkForWinner = () => {
-		let gameboard = GameboardController.gameboard;
-		let winner;
+		let gameboard = GameboardController.gameboard
+		let winner
 		const winningSets = [
 			[0, 1, 2],
 			[3, 4, 5],
@@ -74,7 +78,7 @@ const GameController = (() => {
 			[2, 5, 8],
 			[0, 4, 8],
 			[2, 4, 6],
-		];
+		]
 
 		winningSets.forEach((set) => {
 			if (
@@ -82,27 +86,36 @@ const GameController = (() => {
 				gameboard[set[0]] === gameboard[set[1]] &&
 				gameboard[set[0]] === gameboard[set[2]]
 			) {
-				winner = gameboard[set[0]];
+				winner = gameboard[set[0]]
 			}
-		});
+		})
 
-		return winner ? winner : gameboard.includes('') ? null : `It's a draw!`;
-	};
+		return winner ? winner : gameboard.includes('') ? null : `It's a draw!`
+	}
 
-	return { startGame };
-})();
+	return { startGame }
+})()
 
 const UIController = (() => {
-	const startScreen = document.querySelector('#start-screen');
-	const startGameButton = document.querySelector('#start-btn');
+	const startScreen = document.querySelector('.start-screen')
+	const startGameButton = document.querySelector('#start-btn')
 
 	const showStartGameDialog = () => {
-		console.log('Open');
-		startScreen.showModal();
-	};
+		startScreen.showModal()
+	}
 
-	document.addEventListener('DOMContentLoaded', showStartGameDialog);
-})();
+	document.addEventListener('DOMContentLoaded', showStartGameDialog)
 
-UIController;
-// GameController.startGame();
+	startGameButton.addEventListener('click', () => {
+		GameController.startGame()
+	})
+
+	const updateInstructions = (message) => {
+		let messageArea = document.querySelector('#message')
+		return (messageArea.textContent = message)
+	}
+
+	return { updateInstructions }
+})()
+
+UIController
