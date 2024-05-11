@@ -2,17 +2,16 @@ const GameboardController = (() => {
 	const gameboard = ['', '', '', '', '', '', '', '', '']
 
 	// matches index to gameboard index, checks if space is empty, then places player marker
-	const placeMarker = (playerMarker, spaceIndex) => {
-		gameboard.forEach((space, index) => {
-			let match = index === spaceIndex && space === ''
+	const placeMarker = (playerMarker, squareIndex) => {
+		gameboard.forEach((square, index) => {
+			let match = index === squareIndex && square === ''
 
 			switch (match) {
 				case true:
-					// console.log('match')
-					gameboard.splice(spaceIndex, 1, playerMarker)
-					break
+					gameboard.splice(squareIndex, 1, playerMarker)
+					UIController.updateGameboard(squareIndex, playerMarker)
+					return
 				case false:
-					// console.log('no match')
 					return
 			}
 		})
@@ -44,15 +43,22 @@ const GameController = (() => {
 		playerTwo = createPlayer(playerTwoName, 'O')
 		currentPlayer = randomPlayer(playerOne, playerTwo)
 
-		UIController.updateInstructions(`${currentPlayer.playerName} goes first.`)
-		playRound()
+		UIController.updateMessage(`${currentPlayer.playerName} goes first.`)
+
+		const gameboardSquares = document.querySelectorAll('.gameboard-square')
+
+		gameboardSquares.forEach((square, index) => {
+			square.addEventListener('click', () => {
+				playRound(index)
+			})
+		})
 	}
 
-	const playRound = (marker, selectedSpace) => {
-		marker = currentPlayer.playerMarker
-		selectedSpace = 6
+	const playRound = (clickedSquare) => {
+		let marker = currentPlayer.playerMarker
+		let selectedSquare = clickedSquare
 
-		GameboardController.placeMarker(marker, selectedSpace)
+		GameboardController.placeMarker(marker, selectedSquare)
 
 		// check for winner
 		checkForWinner()
@@ -60,12 +66,15 @@ const GameController = (() => {
 		switchPlayer()
 	}
 
+	// switches current player and updates message
 	const switchPlayer = () => {
 		currentPlayer === playerOne
 			? (currentPlayer = playerTwo)
 			: (currentPlayer = playerOne)
+		UIController.updateMessage(`It's now ${currentPlayer.playerName}'s turn.`)
 	}
 
+	// checks for winner by comparing player markers to the patterns of the winning sets
 	const checkForWinner = () => {
 		let gameboard = GameboardController.gameboard
 		let winner
@@ -97,25 +106,39 @@ const GameController = (() => {
 })()
 
 const UIController = (() => {
-	const startScreen = document.querySelector('.start-screen')
-	const startGameButton = document.querySelector('#start-btn')
+	// const startScreen = document.querySelector('.start-screen')
+	// const startGameButton = document.querySelector('#start-btn')
+	//
+	// const showStartGameDialog = () => {
+	// 	startScreen.showModal()
+	// }
+	//
+	// document.addEventListener('DOMContentLoaded', showStartGameDialog)
+	//
+	// startGameButton.addEventListener('click', () => {
+	// 	GameController.startGame()
+	// })
 
-	const showStartGameDialog = () => {
-		startScreen.showModal()
-	}
-
-	document.addEventListener('DOMContentLoaded', showStartGameDialog)
-
-	startGameButton.addEventListener('click', () => {
-		GameController.startGame()
-	})
-
-	const updateInstructions = (message) => {
+	// updates message to show current game status
+	const updateMessage = (message) => {
 		let messageArea = document.querySelector('#message')
 		return (messageArea.textContent = message)
 	}
 
-	return { updateInstructions }
+	// updates the gameboard to show placement of player marker
+	const updateGameboard = (squareIndex, playerMarker) => {
+		let gameboardSquares = document.querySelectorAll('.gameboard-square')
+		console.log(`${squareIndex} : ${playerMarker}`)
+
+		gameboardSquares.forEach((square, index) => {
+			if (index === squareIndex) {
+				square.textContent = playerMarker
+			}
+		})
+	}
+
+	return { updateMessage, updateGameboard }
 })()
 
-UIController
+// UIController
+GameController.startGame()
