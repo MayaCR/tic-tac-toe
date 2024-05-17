@@ -43,7 +43,7 @@ const GameController = (() => {
 		playerTwo = createPlayer(playerTwoName, 'O')
 		currentPlayer = randomPlayer(playerOne, playerTwo)
 
-		UIController.updateMessage(`${currentPlayer.playerName} goes first.`)
+		UIController.updateMessage(`${currentPlayer.playerName}, your first.`)
 
 		const gameboardSquares = document.querySelectorAll('.gameboard-square')
 
@@ -71,7 +71,7 @@ const GameController = (() => {
 		currentPlayer === playerOne
 			? (currentPlayer = playerTwo)
 			: (currentPlayer = playerOne)
-		UIController.updateMessage(`It's now ${currentPlayer.playerName}'s turn.`)
+		UIController.updateMessage(`Your turn ${currentPlayer.playerName}.`)
 	}
 
 	// checks for winner by comparing player markers to the patterns of the winning sets
