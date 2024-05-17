@@ -78,12 +78,18 @@ body {
 .player-section p {
 	text-align: center;
 	padding: 1em 0 4em 0;
+	font-size: 2em;
 }
 
 .player-section input {
 	border-bottom: 1px solid black;
 	width: 300px;
 	text-align: center;
+}
+
+.player-marker {
+	text-align: center;
+	font-size: 4em;
 }
 
 .gameboard-section {
