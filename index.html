@@ -2,63 +2,51 @@
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<link rel="stylesheet" href="styles.css" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<title>Tic Tac Toe</title>
+		<link href="style.css" rel="stylesheet" />
 	</head>
 	<body>
-		<dialog class="start-screen">
+		<div class="header">Tic Tac Toe</div>
+		<div id="message" class="message"></div>
+
+		<div class="gameboard-container">
+			<div id="gameboard">
+				<div class="gameboard-square"></div>
+				<div class="gameboard-square"></div>
+				<div class="gameboard-square"></div>
+				<div class="gameboard-square"></div>
+				<div class="gameboard-square"></div>
+				<div class="gameboard-square"></div>
+				<div class="gameboard-square"></div>
+				<div class="gameboard-square"></div>
+				<div class="gameboard-square"></div>
+			</div>
+		</div>
+
+		<dialog id="dialog" class="dialog">
 			<form method="dialog">
-				<div class="header">Tic Tac Toe</div>
-				<div class="content">
-					<div class="player-info">
-						<label for="player-one">X</label>
-						<input
-							type="text"
-							name="player-one"
-							value="Player One"
-							id="player-one"
-						/>
-					</div>
-					<div class="player-info">
-						<label for="player-two">O</label>
-						<input
-							type="text"
-							name="player-two"
-							value="Player Two"
-							id="player-two"
-						/>
-					</div>
+				<div class="player-info">
+					<input
+						id="player-one"
+						type="text"
+						name="player-one"
+						placeholder="Player One"
+					/>
+					<label for="player-one">X</label>
+				</div>
+				<div class="player-info">
+					<input
+						id="player-two"
+						type="text"
+						name="player-two"
+						placeholder="Player Two"
+					/>
+					<label for="player-two">O</label>
 				</div>
 				<button type="submit" id="start-btn" class="btn">Start Game</button>
 			</form>
 		</dialog>
-		<div class="header">Tic Tac Toe</div>
-		<div id="message" class="instructions">Let's Play!</div>
-		<div id="game-section">
-			<div class="player-section">
-				<p>Player One</p>
-				<div class="player-marker">X</div>
-			</div>
-			<div class="gameboard-section">
-				<div id="gameboard">
-					<div class="gameboard-square"></div>
-					<div class="gameboard-square"></div>
-					<div class="gameboard-square"></div>
-					<div class="gameboard-square"></div>
-					<div class="gameboard-square"></div>
-					<div class="gameboard-square"></div>
-					<div class="gameboard-square"></div>
-					<div class="gameboard-square"></div>
-					<div class="gameboard-square"></div>
-				</div>
-				<button type="button" id="reset-btn" class="btn">Reset Game</button>
-			</div>
-			<div class="player-section">
-				<p>Player Two</p>
-				<div class="player-marker">O</div>
-			</div>
-		</div>
 		<script src="script.js"></script>
 	</body>
 </html>
