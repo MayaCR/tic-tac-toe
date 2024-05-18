@@ -1,0 +1,98 @@
+/* Reset */
+body,
+div,
+form,
+label,
+input,
+button {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/*      */
+
+body {
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+.dialog {
+	border: none;
+	border-radius: 12px;
+	padding: 2em;
+	width: 340px;
+	height: 220px;
+}
+
+.dialog form {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.dialog .player-info {
+	margin: 1.4em 0;
+	border-bottom: 1px solid #000;
+}
+
+.dialog input {
+	padding: 0.4em 0;
+}
+
+.dialog label {
+	font-weight: 600;
+	font-size: 1.4em;
+	padding-left: 1em;
+}
+
+.dialog button {
+	margin-top: 1em;
+}
+
+.header {
+	width: 100%;
+	font-size: 4rem;
+	text-align: center;
+	padding: 1.4em 0;
+	text-transform: uppercase;
+}
+
+.message {
+	width: 100%;
+	font-size: 1.4rem;
+	text-align: center;
+	padding: 1em 0;
+}
+
+.gameboard-container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.btn {
+	cursor: pointer;
+	background-color: #f3f5f7;
+	padding: 1em 2.8em;
+	border-radius: 12px;
+}
+
+#gameboard {
+	display: grid;
+	grid-template-columns: repeat(3, 140px);
+	grid-template-rows: repeat(3, 140px);
+	gap: 1em;
+	margin: 4em 0;
+}
+
+.gameboard-square {
+	cursor: pointer;
+	background-color: #f3f5f7;
+	border-radius: 12px;
+	text-align: center;
+	font-size: 8rem;
+	padding: 14px 0;
+}
